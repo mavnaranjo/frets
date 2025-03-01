@@ -6,62 +6,39 @@ import { PitchAlteration } from './pitch-alteration';
 
 describe('AbsolutePitch', () => {
     it('should instance AbsolutePitch', () => {
-        const pitch = new AbsolutePitch(new Pitch(PitchName.C));
+        const pitch = AbsolutePitch.fromString('C');
         expect(pitch).toBeTruthy();
     });
     
     it('default octave to be 4', () => {
-        const pitch = new AbsolutePitch(new Pitch(PitchName.C));
+        const pitch = AbsolutePitch.fromString('C');
         expect(pitch.octave).toBe(4);
     });
 
     describe('Representation', () => {
-        const testCases = [
-            { pitch: new AbsolutePitch(new Pitch(PitchName.A)), expected: 'A4' },
-            { pitch: new AbsolutePitch(new Pitch(PitchName.B), 0), expected: 'B0' },
-            { pitch: new AbsolutePitch(new Pitch(PitchName.C), 1), expected: 'C1' },
-            { pitch: new AbsolutePitch(new Pitch(PitchName.D), 2), expected: 'D2' },
-            { pitch: new AbsolutePitch(new Pitch(PitchName.E), 3), expected: 'E3' },
-            { pitch: new AbsolutePitch(new Pitch(PitchName.F), 4), expected: 'F4' },
-            { pitch: new AbsolutePitch(new Pitch(PitchName.G), 5), expected: 'G5' },
-            { pitch: new AbsolutePitch(new Pitch(PitchName.A), 6), expected: 'A6' },
-            { pitch: new AbsolutePitch(new Pitch(PitchName.B), 7), expected: 'B7' },
-        ];
+        const testCases = [ 'A4', 'B0', 'C1', 'D2', 'E3', 'F4', 'G5', 'A6', 'B7' ];
 
-        testCases.forEach(testCase => {
-            it(`${testCase.pitch.toString()} to be displayed as ${testCase.expected}`, () => {
-                expect(testCase.pitch.toString()).toBe(testCase.expected);
+        testCases.forEach(pitchString => {
+            it(`${pitchString} to be displayed properly`, () => {
+                const pitch = AbsolutePitch.fromString(pitchString);
+                expect(pitch.toString()).toBe(pitchString);
             });
         });
     });
 
     describe('Distances', () => {
         const testCases = [
-            {
-                from: new AbsolutePitch(new Pitch(PitchName.A)),
-                to: new AbsolutePitch(new Pitch(PitchName.A), 5),
-                distance: 12
-            },
-            {
-                from: new AbsolutePitch(new Pitch(PitchName.A)),
-                to: new AbsolutePitch(new Pitch(PitchName.A), 3),
-                distance: -12
-            },
-            {
-                from: new AbsolutePitch(new Pitch(PitchName.B)),
-                to: new AbsolutePitch(new Pitch(PitchName.C), 5),
-                distance: 1
-            },
-            {
-                from: new AbsolutePitch(new Pitch(PitchName.C)),
-                to: new AbsolutePitch(new Pitch(PitchName.A), 3),
-                distance: -3
-            },
+            { from: 'A', to: 'A5', distance: 12 },
+            { from: 'A', to: 'A3', distance: -12 },
+            { from: 'B', to: 'C5', distance: 1 },
+            { from: 'C', to: 'A3', distance: -3 },
         ];
 
         testCases.forEach(testCase => {
-            it(`distance between ${testCase.from.toString()} and ${testCase.to.toString()} should be ${testCase.distance}`, () => {
-                expect(testCase.from.distance(testCase.to)).toBe(testCase.distance);
+            it(`distance between ${testCase.from} and ${testCase.to} should be ${testCase.distance}`, () => {
+                const fromPitch = AbsolutePitch.fromString(testCase.from);
+                const toPitch = AbsolutePitch.fromString(testCase.to);
+                expect(fromPitch.distance(toPitch)).toBe(testCase.distance);
             });
         });
     });
@@ -69,46 +46,32 @@ describe('AbsolutePitch', () => {
     describe('Frequency', () => {
         const testCases = [
             // base tunings
-            { pitch: new AbsolutePitch(new Pitch(PitchName.A)), frequency: 440 },
-            { pitch: new AbsolutePitch(new Pitch(PitchName.A)), tuning: 436, frequency: 436 },
-            { pitch: new AbsolutePitch(new Pitch(PitchName.A)), tuning: 442, frequency: 442 },
+            { pitch: 'A', frequency: 440 },
+            { pitch: 'A', tuning: 436, frequency: 436 },
+            { pitch: 'A', tuning: 442, frequency: 442 },
             // octaves
-            { pitch: new AbsolutePitch(new Pitch(PitchName.A), 0), frequency: 27.5 },
-            { pitch: new AbsolutePitch(new Pitch(PitchName.A), 1), frequency: 55 },
-            { pitch: new AbsolutePitch(new Pitch(PitchName.A), 2), frequency: 110 },
-            { pitch: new AbsolutePitch(new Pitch(PitchName.A), 3), frequency: 220 },
-            { pitch: new AbsolutePitch(new Pitch(PitchName.A), 4), frequency: 440 },
-            { pitch: new AbsolutePitch(new Pitch(PitchName.A), 5), frequency: 880 },
-            { pitch: new AbsolutePitch(new Pitch(PitchName.A), 6), frequency: 1760 },
-            { pitch: new AbsolutePitch(new Pitch(PitchName.A), 7), frequency: 3520 },
+            { pitch: 'A0', frequency: 27.5 },
+            { pitch: 'A1', frequency: 55 },
+            { pitch: 'A2', frequency: 110 },
+            { pitch: 'A3', frequency: 220 },
+            { pitch: 'A4', frequency: 440 },
+            { pitch: 'A5', frequency: 880 },
+            { pitch: 'A6', frequency: 1760 },
+            { pitch: 'A7', frequency: 3520 },
             // other pitches
-            {
-                pitch: new AbsolutePitch(new Pitch(PitchName.C, PitchAlteration.DOUBLE_SHARP), 0),
-                frequency: 18.35
-            },
-            {
-                pitch: new AbsolutePitch(new Pitch(PitchName.D, PitchAlteration.SHARP), 1),
-                frequency: 38.89
-            },
-            {
-                pitch: new AbsolutePitch(new Pitch(PitchName.E), 2),
-                frequency: 82.41
-            },
-            {
-                pitch: new AbsolutePitch(new Pitch(PitchName.F, PitchAlteration.FLAT), 3),
-                frequency: 164.81
-            },
-            {
-                pitch: new AbsolutePitch(new Pitch(PitchName.G, PitchAlteration.DOUBLE_FLAT), 4),
-                frequency: 349.23
-            },
+            { pitch: 'C♯♯0', frequency: 18.35 },
+            { pitch: 'D♯1', frequency: 38.89 },
+            { pitch: 'E2', frequency: 82.41 },
+            { pitch: 'F♭3', frequency: 164.81 },
+            { pitch: 'G♭♭4', frequency: 349.23 },
 
         ]
 
         testCases.forEach(testCase => {
             const tuning = testCase.tuning ?? 440;
-            it(`frequency for ${testCase.pitch.toString()} with base tuning ${tuning}Hz should be ${testCase.frequency}Hz`, () => {
-                expect(testCase.pitch.frequency(tuning ?? 440)).toBeCloseTo(testCase.frequency, 2);
+            it(`frequency for ${testCase.pitch} with base tuning ${tuning}Hz should be ${testCase.frequency}Hz`, () => {
+                const pitch = AbsolutePitch.fromString(testCase.pitch);
+                expect(pitch.frequency(tuning)).toBeCloseTo(testCase.frequency, 2);
             });
         });
     });

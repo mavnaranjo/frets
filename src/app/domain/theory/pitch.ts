@@ -13,6 +13,21 @@ export class Pitch {
         this.alteration = alteration;
     }
 
+    static fromString(pitchString: string): Pitch {
+        const match = /^([A-G])(♭♭|♭|♮|♯|♯♯)?$/.exec(pitchString);
+        if (!match) {
+            throw new Error(`Invalid pitch string: ${pitchString}`);
+        }
+
+        const pitchName = PitchName[match[1] as keyof typeof PitchName];
+
+        const alterationString = (match[2] ?? '♮') as PitchAlterationRepresentation;
+        const alterationKey = Object.keys(PitchAlterationRepresentation)[Object.values(PitchAlterationRepresentation).indexOf(alterationString)];
+        const pitchAlteration = PitchAlteration[alterationKey as keyof typeof PitchAlteration];
+
+        return new Pitch(pitchName, pitchAlteration);
+    }
+
     distance(other: Pitch) {
         return (other.pitch + other.alteration) - (this.pitch + this.alteration);
     }

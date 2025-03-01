@@ -10,6 +10,18 @@ export class AbsolutePitch {
         this.octave = octave;
     }
 
+    static fromString(pitchString: string): AbsolutePitch {
+        const match = /^([A-G])(♭♭|♭|♮|♯|♯♯)?([0-9])?$/.exec(pitchString);
+        if (!match) {
+            throw new Error(`Invalid absolute pitch string: ${pitchString}`);
+        }
+
+        const pitch = Pitch.fromString(match[1] + (match[2] ?? ''));
+        const octave = parseInt(match[3] ?? '4');
+
+        return new AbsolutePitch(pitch, octave);
+    }
+
     distance(other: AbsolutePitch): number {
         return this.pitch.distance(other.pitch) + 12 * (other.octave - this.octave);
     }
