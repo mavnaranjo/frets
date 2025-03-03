@@ -6,7 +6,7 @@ export enum PitchAlteration {
     DOUBLE_SHARP = 2
 }
 
-export enum PitchAlterationRepresentation {
+export enum PitchAlterationPresentation {
     NATURAL = '♮',
     FLAT = '♭',
     DOUBLE_FLAT = '♭♭',

@@ -1,5 +1,5 @@
 import { PitchName } from './pitch-name';
-import { PitchAlteration, PitchAlterationRepresentation } from './pitch-alteration';
+import { PitchAlteration, PitchAlterationPresentation } from './pitch-alteration';
 
 export class Pitch {
     readonly pitch: PitchName;
@@ -21,8 +21,8 @@ export class Pitch {
 
         const pitchName = PitchName[match[1] as keyof typeof PitchName];
 
-        const alterationString = (match[2] ?? '♮') as PitchAlterationRepresentation;
-        const alterationKey = Object.keys(PitchAlterationRepresentation)[Object.values(PitchAlterationRepresentation).indexOf(alterationString)];
+        const alterationString = (match[2] ?? '♮') as PitchAlterationPresentation;
+        const alterationKey = Object.keys(PitchAlterationPresentation)[Object.values(PitchAlterationPresentation).indexOf(alterationString)];
         const pitchAlteration = PitchAlteration[alterationKey as keyof typeof PitchAlteration];
 
         return new Pitch(pitchName, pitchAlteration);
@@ -35,8 +35,8 @@ export class Pitch {
     toString(): string {
         let pitchString = PitchName[this.pitch];
         if (this.alteration !== PitchAlteration.NATURAL) {
-            const alterationKey = PitchAlteration[this.alteration] as keyof typeof PitchAlterationRepresentation;
-            pitchString += PitchAlterationRepresentation[alterationKey];
+            const alterationKey = PitchAlteration[this.alteration] as keyof typeof PitchAlterationPresentation;
+            pitchString += PitchAlterationPresentation[alterationKey];
         }
         return pitchString;
     }
