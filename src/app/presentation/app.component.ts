@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { AbsolutePitch } from '../domain/theory/absolute-pitch';
-import { Pitch } from '../domain/theory/pitch';
-import { PitchName } from '../domain/theory/pitch-name';
-import { PitchAlteration } from '../domain/theory/pitch-alteration';
+import { AbsolutePitch } from '../domain/theory/pitch/absolute-pitch';
+import { Pitch } from '../domain/theory/pitch/pitch';
+import { PitchName } from '../domain/theory/pitch/pitch-name';
+import { PitchAlteration } from '../domain/theory/pitch/pitch-alteration';
 
 @Component({
   selector: 'app-root',
