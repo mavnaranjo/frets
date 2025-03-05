@@ -14,7 +14,7 @@ export class Pitch {
     }
 
     static fromString(pitchString: string): Pitch {
-        const match = /^([A-G])(♭♭|♭|♮|♯|♯♯)?$/.exec(pitchString);
+        const match = /^([A-G])(𝄫|♭|♮|♯|𝄪)?$/.exec(pitchString);
         if (!match) {
             throw new Error(`Invalid pitch string: ${pitchString}`);
         }

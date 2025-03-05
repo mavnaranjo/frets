@@ -11,7 +11,7 @@ export class AbsolutePitch {
     }
 
     static fromString(pitchString: string): AbsolutePitch {
-        const match = /^([A-G])(♭♭|♭|♮|♯|♯♯)?([0-9])?$/.exec(pitchString);
+        const match = /^([A-G])(𝄫|♭|♮|♯|𝄪)?([0-9])?$/.exec(pitchString);
         if (!match) {
             throw new Error(`Invalid absolute pitch string: ${pitchString}`);
         }

@@ -9,7 +9,7 @@ export enum PitchAlteration {
 export enum PitchAlterationPresentation {
     NATURAL = '♮',
     FLAT = '♭',
-    DOUBLE_FLAT = '♭♭',
+    DOUBLE_FLAT = '𝄫',
     SHARP = '♯',
-    DOUBLE_SHARP = '♯♯'
+    DOUBLE_SHARP = '𝄪'
 }

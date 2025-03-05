@@ -13,7 +13,7 @@ describe('Pitch', () => {
     });
 
     describe('Representation', () => {
-        const testCases = [ 'A', 'B♭', 'C♭♭', 'D♯', 'E♯♯' ];
+        const testCases = [ 'A', 'B♭', 'C𝄫', 'D♯', 'E𝄪' ];
 
         testCases.forEach(pitchString => {
             it(`${pitchString} to be displayed properly`, () => {
@@ -35,9 +35,9 @@ describe('Pitch', () => {
             { from: 'B', to: 'C', distance: -11 },
             // alterations
             { from: 'C', to: 'C♯', distance: 1 },
-            { from: 'D', to: 'D♯♯', distance: 2 },
+            { from: 'D', to: 'D𝄪', distance: 2 },
             { from: 'E', to: 'E♭', distance: -1 },
-            { from: 'F', to: 'F♭♭', distance: -2 }
+            { from: 'F', to: 'F𝄫', distance: -2 }
         ];
 
         testCases.forEach(testCase => {

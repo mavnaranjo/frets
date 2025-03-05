@@ -59,11 +59,11 @@ describe('AbsolutePitch', () => {
             { pitch: 'A6', frequency: 1760 },
             { pitch: 'A7', frequency: 3520 },
             // other pitches
-            { pitch: 'C♯♯0', frequency: 18.35 },
+            { pitch: 'C𝄪0', frequency: 18.35 },
             { pitch: 'D♯1', frequency: 38.89 },
             { pitch: 'E2', frequency: 82.41 },
             { pitch: 'F♭3', frequency: 164.81 },
-            { pitch: 'G♭♭4', frequency: 349.23 }
+            { pitch: 'G𝄫4', frequency: 349.23 }
         ]
 
         testCases.forEach(testCase => {
