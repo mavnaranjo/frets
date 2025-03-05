@@ -6,6 +6,10 @@ export class AbsolutePitch {
     readonly octave: number;
 
     constructor(pitch: Pitch, octave: number = 4) {
+        if (octave < 0) {
+            throw new Error(`Invalid octave: ${octave}`);
+        }
+
         this.pitch = pitch;
         this.octave = octave;
     }

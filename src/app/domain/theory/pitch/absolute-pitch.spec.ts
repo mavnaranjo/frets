@@ -10,9 +10,17 @@ describe('AbsolutePitch', () => {
         expect(pitch).toBeTruthy();
     });
     
-    it('default octave to be 4', () => {
-        const pitch = AbsolutePitch.fromString('C');
-        expect(pitch.octave).toBe(4);
+    describe('Octave', () => {
+        it('default octave to be 4', () => {
+            const pitch = AbsolutePitch.fromString('C');
+            expect(pitch.octave).toBe(4);
+        });
+        
+        it('negative octave should throw error', () => {
+            expect(() => {
+                const pitch = new AbsolutePitch(new Pitch(PitchName.C), -1);
+            }).toThrow();
+        });
     });
 
     describe('Representation', () => {
