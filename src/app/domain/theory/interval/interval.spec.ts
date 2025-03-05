@@ -69,7 +69,9 @@ describe('Interval', () => {
 
         incorrectTestCases.forEach(incorrectInterval => {
             it(`interval ${incorrectInterval} should throw error`, () => {
-                expect(() => Interval.fromString(incorrectInterval)).toThrow();
+                expect(() => {
+                    const interval = Interval.fromString(incorrectInterval);
+                }).toThrow();
             });
         });
     });

@@ -9,7 +9,7 @@ describe('AbsolutePitch', () => {
         const pitch = AbsolutePitch.fromString('C');
         expect(pitch).toBeTruthy();
     });
-    
+
     describe('Octave', () => {
         it('default octave to be 4', () => {
             const pitch = AbsolutePitch.fromString('C');
