@@ -3,6 +3,7 @@ import { AbsolutePitch } from './absolute-pitch';
 import { Pitch } from './pitch';
 import { PitchName } from './pitch-name';
 import { PitchAlteration } from './pitch-alteration';
+import { Interval } from '../interval/interval';
 
 describe('AbsolutePitch', () => {
     it('should instance AbsolutePitch', () => {
@@ -79,6 +80,23 @@ describe('AbsolutePitch', () => {
             it(`frequency for ${testCase.pitch} with base tuning ${tuning}Hz should be ${testCase.frequency}Hz`, () => {
                 const pitch = AbsolutePitch.fromString(testCase.pitch);
                 expect(pitch.frequency(tuning)).toBeCloseTo(testCase.frequency, 2);
+            });
+        });
+    });
+
+    describe('Create from interval', () => {
+        const testCases = [
+            { from: 'G4', interval: 'P5', expected: 'D5' },
+            { from: 'B5', interval: 'A1', expected: 'B♯5' },
+            { from: 'D3', interval: 'd8', expected: 'D♭4'}
+        ];
+
+        testCases.forEach(testCase => {
+            it(`interval ${testCase.interval} from ${testCase.from} should be ${testCase.expected}`, () => {
+                const fromPitch = AbsolutePitch.fromString(testCase.from);
+                const interval = Interval.fromString(testCase.interval);
+                const toPitch = AbsolutePitch.fromInterval(fromPitch, interval);
+                expect(toPitch.toString()).toBe(testCase.expected);
             });
         });
     });

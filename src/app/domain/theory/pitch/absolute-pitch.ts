@@ -1,5 +1,6 @@
+import { Interval } from "../interval/interval";
 import { Pitch } from "./pitch";
-import { PitchName } from "./pitch-name";
+import { PitchName, PitchNamePresentation } from "./pitch-name";
 
 export class AbsolutePitch { 
     readonly pitch: Pitch;
@@ -23,6 +24,17 @@ export class AbsolutePitch {
         const pitch = Pitch.fromString(match[1] + (match[2] ?? ''));
         const octave = parseInt(match[3] ?? '4');
 
+        return new AbsolutePitch(pitch, octave);
+    }
+
+    static fromInterval(from: AbsolutePitch, interval: Interval): AbsolutePitch {
+        const pitch = Pitch.fromInterval(from.pitch, interval);
+
+        const fromPitchKey = PitchName[from.pitch.pitch] as keyof typeof PitchName;
+        const fromPitchIndex = Object.keys(PitchNamePresentation).indexOf(fromPitchKey);
+        const pitchIndex = fromPitchIndex + interval.number - 1;
+
+        const octave = from.octave + Math.floor(pitchIndex / 8);
         return new AbsolutePitch(pitch, octave);
     }
 
