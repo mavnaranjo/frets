@@ -1,6 +1,4 @@
 import { Interval } from "../interval/interval";
-import { IntervalNumber } from "../interval/interval-number";
-import { IntervalQuality } from "../interval/interval-quality";
 import { Pitch } from "../pitch/pitch";
 import { ScaleType } from "./scale-type";
 
