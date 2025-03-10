@@ -36,7 +36,7 @@ export class Interval {
             !Interval.perfectible(number) &&
             quality == IntervalQuality.PERFECT
         ) {
-            throw new Error(`Invalid interval: ${quality} ${number}`);
+            throw new Error(`Invalid interval`);
         }
     }
 
@@ -50,7 +50,7 @@ export class Interval {
                 quality == IntervalQuality.MAJOR
             )
         ) {
-            throw new Error(`Invalid interval: ${quality} ${number}`);
+            throw new Error(`Invalid interval`);
         }
     }
 
@@ -63,7 +63,7 @@ export class Interval {
     }
 
     static fromString(intervalString: string): Interval {
-        const match = /^(P|d|A|m|M)([0-8])$/.exec(intervalString);
+        const match = /^(P|d|A|m|M)([1-8])$/.exec(intervalString);
         if (!match) {
             throw new Error(`Invalid interval string: ${intervalString}`);
         }
