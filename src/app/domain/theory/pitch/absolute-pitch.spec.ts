@@ -20,17 +20,27 @@ describe('AbsolutePitch', () => {
         it('negative octave should throw error', () => {
             expect(() => {
                 const pitch = new AbsolutePitch(new Pitch(PitchName.C), -1);
-            }).toThrow();
+            }).toThrowError(`Invalid octave: -1`);
         });
     });
 
     describe('Representation', () => {
-        const testCases = [ 'A4', 'B0', 'C1', 'D2', 'E3', 'F4', 'G5', 'A6', 'B7' ];
+        const testCases = [ 'A4', 'B0', 'C♯1', 'D2', 'E♭3', 'F4', 'G5', 'A6', 'B7' ];
 
         testCases.forEach(pitchString => {
             it(`${pitchString} to be displayed properly`, () => {
                 const pitch = AbsolutePitch.fromString(pitchString);
                 expect(pitch.toString()).toBe(pitchString);
+            });
+        });
+
+        const invalidTestCases = [ 'a', 'B#', 'Cb', '♭', 'C-1', 'E10' ];
+
+        invalidTestCases.forEach(pitchString => {
+            it(`${pitchString} should throw error`, () => {
+                expect(() => {
+                    const pitch = AbsolutePitch.fromString(pitchString);
+                }).toThrowError(`Invalid absolute pitch string: ${pitchString}`);
             });
         });
     });

@@ -21,6 +21,16 @@ describe('Interval', () => {
                 expect(interval.toString()).toBe(intervalString);
             }); 
         });
+
+        const invalidTestCases = [ 'p1', 'm0', 'M', '2' ];
+
+        invalidTestCases.forEach(intervalString => {
+            it(`interval ${intervalString} should throw error`, () => {
+                expect(() => {
+                    const interval = Interval.fromString(intervalString);
+                }).toThrowError(`Invalid interval string: ${intervalString}`);
+            });
+        });
     });
 
     describe('Correct intervals', () => {
@@ -71,7 +81,7 @@ describe('Interval', () => {
             it(`interval ${incorrectInterval} should throw error`, () => {
                 expect(() => {
                     const interval = Interval.fromString(incorrectInterval);
-                }).toThrow();
+                }).toThrowError(`Invalid interval`);
             });
         });
     });

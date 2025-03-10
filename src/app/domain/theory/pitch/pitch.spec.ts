@@ -22,6 +22,16 @@ describe('Pitch', () => {
                 expect(pitch.toString()).toBe(pitchString);
             }); 
         });
+
+        const invalidTestCases = [ 'a', 'B#', 'Cb', '♭' ];
+
+        invalidTestCases.forEach(pitchString => {
+            it(`${pitchString} should throw error`, () => {
+                expect(() => {
+                    const pitch = Pitch.fromString(pitchString);
+                }).toThrowError(`Invalid pitch string: ${pitchString}`);
+            });
+        });
     });
 
     describe('Distances', () => {

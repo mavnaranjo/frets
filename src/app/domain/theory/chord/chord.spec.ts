@@ -17,6 +17,15 @@ describe('Chord', () => {
                 expect(chord.toString()).toBe(chordString);
             });
         });
+
+        const invalidTestCases = [ 'M', 'm', 'C6', 'd5', '5', 'Mm', 'Eb5', 'F#M'];
+        invalidTestCases.forEach(chordString => {
+            it(`${chordString} should throw error`, () => {
+                expect(() => {
+                    const chord = Chord.fromString(chordString);
+                }).toThrowError(`Invalid chord string: ${chordString}`);
+            });
+        })
     });
 
     describe('Chord pitches', () => {
